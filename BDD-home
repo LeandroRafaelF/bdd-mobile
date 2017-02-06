@@ -1,0 +1,55 @@
+Feature: Search for trips
+ 
+Background:
+    Given user is on home page
+ 
+Scenario: Search for an invalid place using Origin or Destination field autocomplete
+    When users inputs "lorem" on origin or destination field
+    Then request to places with "lorem" is made
+    And error message with no results "lorem" are show on the suggestion list.
+ 
+ 
+Scenario: Search for a valid place using Origin or Destination fields autocomplete.
+    When user inputs "Sao Paulo, SP - TODOS" on origin or destination field
+    Then request to places with "Sao Paulo, SP - TODOS" is made
+     And results with "Sao Paulo, SO - TODOS" are shown on the suggestion list
+ 
+ 
+Scenario: Search widget is correctly filled without departure date
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+    When search button is clicked
+    Then search results page loads with the "correct trips" and "departure date"
+ 
+Scenario: Search widget is correctly filled for outbound trip
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+     And departure date is filled with "departure date"
+    When search button is clicked
+    Then search results page loads with the "correct trips" and "departure date"
+ 
+Scenario:Search widget is correctly filled for roundtrip
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+     And departure date is filled with "departure date"
+     And return date is filled with "return date"
+    When search button is clicked
+    Then search results page loads with the "correct trips" and "departure place"
+    When a trip result is clicked
+    Then seatmap modal opens
+     And user select a seat
+    Then continue booking button appears
+    When user click on continue booking button
+    The search results page loads with the "correct return trip" and "return date"
+     And departure card must appears on top of the page
+ 
+Scenario: Origin field is not correctly filled
+    Given origin field is blank
+    When search button is clicked
+    Then validation message is show on origin field
+ 
+Scenario: Destination field is not correct filled
+    Given origin field is filled with "origin place"
+     And destination field is blank
+    When search button is clicked
+    Then validation message is show destination field

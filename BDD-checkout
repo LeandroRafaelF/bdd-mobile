@@ -1,0 +1,37 @@
+Checkout
+Feature: place order
+    Customer must be able to place an order by any payment means
+Background:
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+    When search button is clicked
+    Then search results page appears
+    Given an active trip
+    When user clicks on the select button
+    The seatmap modal opens
+    Given user clicks on "one" empty seat
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then seats are blocked
+     And checkout page open
+Scenario: All fields are correctly filled for purchase by credit card
+    Given all fields are correctly filled
+    When user clicks on purchase button
+    Then order is created
+     And user is directed to success or confirmation page
+ 
+Scenario: Place order by paypal
+    Given all fields are correctly filled
+    And paypal table is selected
+    When user clicks on purchase button
+    Then user is directed to paypal modal
+
+Scenario: Sell insurance from bus company
+    Given a trip with insurance
+    Then a sell insurance link opens
+    When user clicks on insurance link
+    Then insurance details modal opens
+    Given user choose a seat in checkbox
+     And user click a insurance confirm button
+     Then modal is closed 
+    Then validation is confirmed

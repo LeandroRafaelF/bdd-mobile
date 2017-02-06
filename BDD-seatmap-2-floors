@@ -1,0 +1,39 @@
+Seatmap: bus with 2 Floors
+
+Feature:
+    Choose must be able to pick one or more seat into a given trip
+ 
+Background:
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+    When search button is clicked
+    Then search results page appears
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+
+  Scenario: The user is on search results page AND selected bus is dounble deck
+  	GIVEN the user is on search results page AND selected bus is dounble deck
+	WHEN he clicks on select button
+	THEN seat map is shown according to layout
+
+  Scenario: The user is on search results and seat map 1st floor
+ 	GIVEN the user is on a seat map AND that seat map is double deck AND it is shown 1st Floor
+	WHEN he clicks on the 1st Floor tab
+	THEN nothing happens
+
+  Scenario: 
+  	GIVEN the user is on a seat map AND that seat map is double deck AND it is shown 1st Floor
+	WHEN he clicks on the 2nd Floor tab
+	THEN 2nd floor seat map is shown AND 2nd floor tab is highlighted
+
+  Scenario:
+  	GIVEN the user is on a seat map AND that seat map is double deck AND it is shown 2nd Floor
+	WHEN he clicks on the 2nd Floor tab
+	THEN nothing happens
+
+  Scenario:
+  	GIVEN the user is on a seat map AND that seat map is double deck AND it is shown 2nd Floor
+    WHEN he clicks on the 1st Floor tab
+    THEN 1st floor seat map is shown and 1st floor tab is highlighted
+

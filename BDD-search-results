@@ -1,0 +1,27 @@
+Search results
+
+Feature: choose trip
+    Customer must be able to see more details about trip he chooses
+ 
+Background:
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+    When search button is clicked
+    Then search results page appears
+ 
+Scenario: Active trip
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+ 
+Scenario: Active trip
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap opens
+ 
+Scenario: Error while loading seatmap modal
+    Given an active trip
+    When user clicks on the select button
+     And an error occurs
+    Then an error message appears
+     And a link to retry the seatmap modal loading

@@ -1,0 +1,37 @@
+My Order
+
+Feature: My order
+    Customer must be able to see more details form the generated order
+Background:
+    Given user is on home page
+ 
+Scenario: User opens menu to access his order
+    Given user is on home page
+    When user clicks on the my order link
+    Then my order page appears
+     And the page has an email field
+     And the page has an order ID field
+ 
+Scenario: User clicks on button with empty email field
+    Given the my order page is open
+     And ID field is filled 
+     And email field is empty
+    When user clicks submit button
+    Then validation message appears
+ 
+Scenario: Wrong email or order ID
+    Given the my order page is open
+     And email is filled
+     And order ID is filled
+    When user clicks button
+     And order is not found
+    Then a message appears on the modal
+     And fields are cleaned
+ 
+Scenario: success on accessing the order
+    Given the the page is open
+      And email is filled
+      And order ID is filled
+    When user clicks button
+     And order is found
+    Then My Order page open and given order details appears

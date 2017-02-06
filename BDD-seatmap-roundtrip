@@ -1,0 +1,75 @@
+Seatmap Roundtrip
+Feature: Choose seats on Round trips
+    Customer must be able to pick one or more seat into a given trip
+ 
+Background:
+    Given origin field is filled with "origin place"
+     And destination field is filled with "destination place"
+     And departure date is filled with "departure date"
+     And return date is filled with "return date"
+    When search button is clicked
+    Then search results page appears
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+    Given available seats on the bus
+Scenario: Round trip outbound
+    Given user clicks on "one" empty seat
+     And it is the outbound trip of a roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then seats are blocked
+     And user is directed to search results page of return trip
+ 
+Scenario: Round trip return
+    Given user clicks on "one" empty seat
+     And it is the outbound trip of a roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then seats are blocked
+     And user is directed to search results page of return trip
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+    Given user clicks on "one" empty seat
+     And it is the return trip of a roundtrip
+    Then continue booking button appears
+    When user clicks continue booking button
+    Then seats are blocked
+     And checkout page open
+ 
+ 
+Scenario: Round trip return error
+    Given user clicks on "one" empty seat
+     And it is the outbound trip of a round roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then seats are blocked
+     And user is directed to search results page of return trip
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+    Given user clicks on "2" empty seat
+     And it is the return trip of a roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then modal appears with message
+ 
+ 
+Scenario: Round trip return error modal close
+    Given user clicks on "one" empty seat
+     And it is the outbound trip of a round roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking button
+    Then seats are blocked
+     And user is directed to search results page of return trip
+    Given an active trip
+    When user clicks on the select button
+    Then seatmap modal opens
+    Given user clicks on "2" empty seat
+     And it is the return trip of roundtrip
+    Then continue booking button appears
+    When user clicks on continue booking
+    Then modal appears with message
+    When user clicks confirm button
+    Then modal is closed
