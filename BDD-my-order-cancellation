@@ -1,4 +1,4 @@
-My Order
+My Order Cancellation
 
 Feature: My order
     Customer must be able to cancel
@@ -6,54 +6,55 @@ Feature: My order
 Background:
     Given user is on home page
 
-GIVEN an order
-AND that order is finished successfully
-WHEN user enter My Order page
-THEN a Cancel button appears according to layout
+Scenario: Successfully canceled
+  GIVEN an order
+  AND that order is finished successfully
+  WHEN user enter My Order page
+  THEN a Cancel button appears according to layout
 
-GIVEN the user is on My Order page
-AND that order is not already cancelled or incomplete
-WHEN user clicks Cancel button
-THEN a confirmation dialog appears with the confirmation text "Are you sure you want to cancel the order?" 
-AND buttons "Yes" and "No"
+Scenario: Confirm cancellation
+  GIVEN the user is on My Order page
+  AND that order is not already cancelled or incomplete
+  WHEN user clicks Cancel button
+  THEN a confirmation dialog appears with the confirmation text "Are you sure you want to cancel the order?" 
+  AND buttons "Yes" and "No"
 
-GIVEN the confirmation dialog is open
-WHEN user clicks on "Yes" button
-THEN modal shows a message "You will receive an email"
+Scenario: Confirm cancellation with link on email
+  GIVEN the confirmation dialog is open
+  WHEN user clicks on "Yes" button
+  THEN modal shows a message "You will receive an email"
 
-GiVEN the email is sent correctly
-WHEN response is received from API
-THEN "email sent correctly" modal is shown
+Scenario: Cancel with correct email
+  GiVEN the email is sent correctly
+  WHEN response is received from API
+  THEN "email sent correctly" modal is shown
 
-GiVEN the email is not sent correctly
-WHEN response is received from API
-THEN "email not sent correctly" modal is shown
+Scenario: Cancel with incorrect email
+  GiVEN the email is not sent correctly
+  WHEN response is received from API
+  THEN "email not sent correctly" modal is shown
 
-GIVEN the confirmation dialog is open
-WHEN user clicks on "No" button
-THEN dialog is closed
+Scenario: Choose not to cancel
+  GIVEN the confirmation dialog is open
+  WHEN user clicks on "No" button
+  THEN dialog is closed
 
-GIVEN the user has received the email
-WHEN he enters the link given
-THEN user is directed to My Order page
-AND request to validate token is made
+Scenario: Validating cancellation 
+  GIVEN the user has received the email
+  WHEN he enters the link given
+  THEN user is directed to My Order page
+  AND request to validate token is made
 
-GIVEN the token validation is not successful
-WHEN response is received from API
-THEN modal with "invalid token" message is shown according to layout
+Scenario: Invalid token
+  GIVEN the token validation is not successful
+  WHEN response is received from API
+  THEN modal with "invalid token" message is shown according to layout
 
+Scenario: Valid token
+  GIVEN the token validation is successful
+  WHEN response is received from the API
+  THEN cancellation request is made to the API
 
-GIVEN the token validation is successful
-WHEN response is received from the API
-THEN cancellation request is made to the API
-
-GIVEN the cancellation request is successful
-WHEN response is received from API
-THEN modal with success message is shown according to layout
-
-GIVEN the cancellation request is not successful
-WHEN response is received from API
-THEN modal with failure message is shown according to layout
 
 
 
